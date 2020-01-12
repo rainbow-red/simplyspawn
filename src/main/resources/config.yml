@@ -1,0 +1,21 @@
+# Random Spawn Radius in blocks from spawn.
+randomSpawnRadius: 500
+
+# Spawn Radius in blocks from spawn
+# Acts like vanilla, spawns players randomly in this smaller area
+# Useful to prevent spawn camping on the spawn command
+spawnRadius: 16
+
+
+# Spawn Radius Player Count Multiplier
+# This is added to the spawn radius. Set to 0 to disable.
+# Default: 20, making spawnRadius = 500 + (playerCount * 20)
+spawnMultiplier: 20
+
+# Worlds to enable random spawn in.
+# Does not work in the nether or the end very well.
+randomSpawnEnabledWorlds: ["world"]
+
+# Should players be spawned randomly when using /spawn
+# this turns /spawn into a random spawn instead of taking them to the spawn location
+spawnCommandIsRandom: false

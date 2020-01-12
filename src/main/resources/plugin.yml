@@ -1,6 +1,6 @@
 name: SimplySpawn
 main: com.minetexas.simplyspawn.SimplySpawn
-version: 0.1
+version: 0.2
 author: ataranlen
 description: Random Spawn.
 commands:
@@ -12,9 +12,13 @@ commands:
     description: Warps you to the location of the spawn point.
     aliases: spawn
     usage: /<command>
+  rs_rspawn:
+    description: Warps you to the location of the spawn point.
+    aliases: rspawn
+    usage: /<command>
   bed:
     description: Warps you to the location of the spawn point.
-    aliases: spawn
+    aliases: bed
     usage: /<command>
   getbed:
     description: Warps you to the location of the spawn point.
@@ -24,6 +28,9 @@ permissions:
   rssetspawn.spawn:
     description: 'Permission to use /spawn'
     default: true
+  rssetspawn.rspawn:
+    description: 'Permission to use /rspawn'
+    default: true
   rssetspawn.setspawn:
     description: 'Permission to use /setspawn'
     default: op
@@ -32,4 +39,7 @@ permissions:
     default: op
   rssetspawn.getbed:
     description: 'Permission to use /getbed'
+    default: op
+  rssetspawn.reload:
+    description: 'Permission to use /ssreload'
     default: op
