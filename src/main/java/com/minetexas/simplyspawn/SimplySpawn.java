@@ -29,7 +29,6 @@ public class SimplySpawn extends JavaPlugin {
 		try {
 			SSSettings.init(this);
 		} catch (IOException | InvalidConfigurationException | InvalidConfiguration e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -1,15 +1,11 @@
 package com.minetexas.simplyspawn.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +14,9 @@ import org.bukkit.entity.Player;
 import com.minetexas.simplyspawn.SSLog;
 import com.minetexas.simplyspawn.SimplySpawn;
 import com.minetexas.simplyspawn.exception.InvalidConfiguration;
+
+import static java.nio.file.StandardCopyOption.COPY_ATTRIBUTES;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class SSSettings {
 
@@ -39,18 +38,18 @@ public class SSSettings {
 		
 	public static FileConfiguration spawnConfig; /* config.yml */
 	
-	public static void init(SimplySpawn plugin) throws FileNotFoundException, IOException, InvalidConfigurationException, InvalidConfiguration {
+	public static void init(SimplySpawn plugin) throws IOException, InvalidConfigurationException, InvalidConfiguration {
 		SSSettings.plugin = plugin;
 
 		loadConfigFiles();
 	}
 	
-	public static void reloadConfigFile() throws FileNotFoundException, IOException, InvalidConfigurationException, InvalidConfiguration
+	public static void reloadConfigFile() throws IOException, InvalidConfigurationException, InvalidConfiguration
 	{
 		loadConfigFiles();
 	}
 	
-	private static void loadConfigFiles() throws FileNotFoundException, IOException, InvalidConfigurationException {
+	private static void loadConfigFiles() throws IOException, InvalidConfigurationException {
 		spawnConfig = loadConfig("config.yml");
 		enabledWorlds = spawnConfig.getStringList("enabledWorlds");
 		spawnCommandIsRandom = spawnConfig.getBoolean("spawnCommandIsRandom");
@@ -59,7 +58,7 @@ public class SSSettings {
 		randomSpawnRadius = Math.max(0, spawnConfig.getInt("randomSpawnRadius"));
 	}
 	
-	public static FileConfiguration loadConfig(String filepath) throws FileNotFoundException, IOException, InvalidConfigurationException {
+	public static FileConfiguration loadConfig(String filepath) throws IOException, InvalidConfigurationException {
 
 		File file = new File(plugin.getDataFolder().getPath()+"/"+filepath);
 		if (!file.exists()) {
@@ -70,14 +69,15 @@ public class SSSettings {
 		SSLog.info("Loading Configuration file: "+filepath);
 		// read the config.yml into memory
 		YamlConfiguration cfg = new YamlConfiguration(); 
-		cfg.load(new InputStreamReader(new FileInputStream(file), Charset.forName("UTF-8")));
+		cfg.load(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
 		return cfg;
 	}
 	
 	public static void streamResourceToDisk(String filepath) throws IOException {
 		URL inputUrl = plugin.getClass().getResource(filepath);
-		File dest = new File(plugin.getDataFolder().getPath()+filepath);
-		FileUtils.copyURLToFile(inputUrl, dest);
+		InputStream input = plugin.getResource(filepath);
+		Path dest = Paths.get(plugin.getDataFolder().getPath() + filepath);
+		Files.copy(input, dest, REPLACE_EXISTING, COPY_ATTRIBUTES);
 	}
 	
 	public static boolean isValidWorld(Player player) {

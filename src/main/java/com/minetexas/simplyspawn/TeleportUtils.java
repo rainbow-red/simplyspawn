@@ -29,8 +29,8 @@ public class TeleportUtils implements Listener {
 		Location spawn = player.getWorld().getSpawnLocation();
 
 		int modifier = SSSettings.spawnRadius;
-		int x1 = (int) Math.round(modifier * -1);
-		int x2 = (int) Math.round(modifier);
+		int x1 = Math.round(modifier * -1);
+		int x2 = Math.round(modifier);
 		int randomX = TeleportUtils.generateInt(x1, SSSettings.randomSpawnRadius + x2);
 		int randomY = TeleportUtils.generateInt(x1, SSSettings.randomSpawnRadius + x2);
 		spawn.setX(spawn.getBlockX() + randomX);
@@ -64,7 +64,7 @@ public class TeleportUtils implements Listener {
 		
 		Block under = w.getBlockAt(loc);
 		
-		if(under.getType() == Material.LAVA || under.getType() == Material.STATIONARY_LAVA) {
+		if(under.getType() == Material.LAVA || under.getType() == Material.LEGACY_STATIONARY_LAVA) {
 			under.setType(Material.STONE);
 			loc.setY(loc.getY() + 1);
 		}

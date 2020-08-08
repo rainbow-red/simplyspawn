@@ -1,8 +1,9 @@
 name: SimplySpawn
 main: com.minetexas.simplyspawn.SimplySpawn
-version: 0.2
-author: ataranlen
+version: '0.3'
+authors: [ataranlen, RainbowSpeedy]
 description: Random Spawn.
+api-version: '1.16'
 commands:
   rs_setspawn:
     description: Sets the server spawn point to your current position.
@@ -13,16 +14,16 @@ commands:
     aliases: spawn
     usage: /<command>
   rs_rspawn:
-    description: Warps you to the location of the spawn point.
+    description: Randomly sends you around the world.
     aliases: rspawn
     usage: /<command>
   bed:
-    description: Warps you to the location of the spawn point.
+    description: Checks if your bed spawn is valid.
     aliases: bed
     usage: /<command>
   getbed:
-    description: Warps you to the location of the spawn point.
-    aliases: spawn
+    description: Checks for the coordinates of another player''s bed spawn point.
+    aliases: getbed
     usage: /<command>
 permissions:
   rssetspawn.spawn:
